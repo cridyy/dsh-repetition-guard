@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0 - 2026-10-01
+
+- Target DSH Desktop `0.2.0-rc.2`.
+- Align peer and development dependencies with `@deepseek-ai/dsh-llm` `0.2.0-rc.2` and Cordis `~4.0.4`.
+- Keep the repetition detector and bounded retry behavior unchanged; the 0.2 runtime retains the plugin event contracts used here.
+
 ## 0.1.1 — 2026-09-29
 
 - 停止写入未被旧版 DSH 识别的自定义会话事件，避免历史重新加载失败。

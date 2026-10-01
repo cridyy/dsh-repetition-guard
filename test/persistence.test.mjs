@@ -55,7 +55,7 @@ test('guard failure and retry survive durable reload without the guard plugin in
   } finally { await reader.fiber.dispose(); }
 });
 
-const header = { version: 3, id: 'repair-test', createdAt: 1, isSeeded: false, delegationDepth: 0 };
+const header = { version: 4, id: 'repair-test', createdAt: 1, isSeeded: false, delegationDepth: 0 };
 const diagnostic = { type: 'repetition-guard/detected', seq: 0, time: 1, data: { finding: { chars: 4096 } } };
 function fixture(events = [diagnostic]) {
   return Buffer.concat([sessionFormatCatalog.encodeCurrentHeader(header, 0), ...events]
@@ -83,7 +83,7 @@ test('repair refuses other unknown required events, malformed JSON, and truncate
 });
 
 test('repair dry run leaves original untouched; apply keeps exact backup and is idempotent', { skip: process.platform !== 'win32' }, t => {
-  const root = temporaryRoot(t), path = join(root, 'session.v3.jsonl.zstd');
+  const root = temporaryRoot(t), path = join(root, 'session.v4.jsonl.zstd');
   const original = fixture();
   writeFileSync(path, original);
   assert.equal(repairFile(path).applied, false);
@@ -103,7 +103,7 @@ test('repair respects the real DSH writer lease and repaired log reopens through
     const handle = await writer.sessionPersistence.create(header);
     await handle.append([diagnostic]);
     await handle.flush();
-    path = join(root, '_no-cwd', header.id, 'session.v3.jsonl.zstd');
+    path = join(root, '_no-cwd', header.id, 'session.v4.jsonl.zstd');
     const original = readFileSync(path);
     assert.throws(() => repairFile(path, { apply: true }), /Session is in use/);
     assert.ok(readFileSync(path).equals(original));

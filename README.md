@@ -28,21 +28,21 @@ Writing. OK. Let me write. Go. Writing. Now.
 发布到 npm 后，推荐使用 DSH 官方 profile 插件命令：
 
 ```powershell
-dsh plugin --profile web add dsh-repetition-guard
+dsh plugin --profile desktop add dsh-repetition-guard
 ```
 
-然后重启 `dsh web`。
+然后重启 DSH Desktop。
 
 从本地 tarball 测试时：
 
 ```powershell
-dsh plugin --profile web add ./dsh-repetition-guard-0.1.1.tgz
+dsh plugin --profile desktop add ./dsh-repetition-guard-0.2.0.tgz
 ```
 
 卸载：
 
 ```powershell
-dsh plugin --profile web remove dsh-repetition-guard
+dsh plugin --profile desktop remove dsh-repetition-guard
 ```
 
 > 不要把源码仓库里的 `tools/install-web.ps1` 当成公开用户的首选安装方式。它是早期本机安装/回滚工具，依赖特定的 dsh 运行时布局；公开包通过 profile 插件命令安装。
@@ -89,9 +89,11 @@ dsh plugin --profile web remove dsh-repetition-guard
 
 当前公开包以以下环境为验证基线：
 
-- DSH `0.1.5-rc.2`
+- DSH Desktop `0.2.0-rc.2`
+- `@deepseek-ai/dsh-llm` `0.2.0-rc.2`
+- `@deepseek-ai/cordis` `~4.0.4`
 - Node.js `>=22.15`（开发验证使用 Node 24）
-- DSH Web profile
+- DSH Desktop profile
 
 没有对所有未来 DSH 版本作兼容承诺。升级 DSH 后，建议先在测试 profile 中验证，再更新生产 profile。
 

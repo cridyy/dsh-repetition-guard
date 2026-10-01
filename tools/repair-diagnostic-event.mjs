@@ -94,7 +94,7 @@ function durableWrite(path, bytes) {
 
 export function repairFile(inputPath, { apply = false } = {}) {
   const path = resolve(inputPath);
-  if (basename(path) !== 'session.v3.jsonl.zstd') throw new Error('Expected an explicit session.v3.jsonl.zstd path');
+  if (!/^session\.v(?:3|4)\.jsonl\.zstd$/u.test(basename(path))) throw new Error('Expected an explicit session.v3.jsonl.zstd or session.v4.jsonl.zstd path');
   const unlock = apply ? acquireLease(path) : () => {};
   try {
     const original = readFileSync(path);
@@ -121,7 +121,7 @@ export function repairFile(inputPath, { apply = false } = {}) {
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   try {
     const [path, flag] = process.argv.slice(2);
-    if (!path || (flag && flag !== '--apply') || process.argv.length > 4) throw new Error('Usage: node tools/repair-diagnostic-event.mjs <session.v3.jsonl.zstd> [--apply]');
+    if (!path || (flag && flag !== '--apply') || process.argv.length > 4) throw new Error('Usage: node tools/repair-diagnostic-event.mjs <session.v3.jsonl.zstd|session.v4.jsonl.zstd> [--apply]');
     console.log(JSON.stringify(repairFile(path, { apply: flag === '--apply' }), null, 2));
   } catch (error) { console.error(error.message); process.exitCode = 1; }
 }
