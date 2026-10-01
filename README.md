@@ -28,24 +28,28 @@ Writing. OK. Let me write. Go. Writing. Now.
 发布到 npm 后，推荐使用 DSH 官方 profile 插件命令：
 
 ```powershell
-dsh plugin --profile desktop add dsh-repetition-guard
+dsh plugin --profile web add dsh-repetition-guard
 ```
 
-然后重启 DSH Desktop。
+然后重启 `dsh web`。
 
 从本地 tarball 测试时：
 
 ```powershell
-dsh plugin --profile desktop add ./dsh-repetition-guard-0.2.0.tgz
+dsh plugin --profile web add ./dsh-repetition-guard-0.2.0.tgz
 ```
 
 卸载：
 
 ```powershell
-dsh plugin --profile desktop remove dsh-repetition-guard
+dsh plugin --profile web remove dsh-repetition-guard
 ```
 
 > 不要把源码仓库里的 `tools/install-web.ps1` 当成公开用户的首选安装方式。它是早期本机安装/回滚工具，依赖特定的 dsh 运行时布局；公开包通过 profile 插件命令安装。
+
+### DSH Desktop
+
+桌面端的 `desktop` profile 由 Electron 应用独占管理，不能使用 `dsh plugin --profile desktop`。请在 DSH Desktop 的插件管理入口安装 `dsh-repetition-guard`，或选择本地文件 `dsh-repetition-guard-0.2.0.tgz`。安装后重启桌面端。
 
 ## 默认配置
 
